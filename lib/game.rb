@@ -16,7 +16,7 @@ class Game
   
   def seed_hands
     players.each do |player|
-      player.hand.concat(deck.remove_cards!(7))
+      player.hand = Hand.new(deck.remove_cards!(7))
     end
   end
   
