@@ -36,58 +36,53 @@ RSpec.describe 'hand' do
     let(:card10) { Card.new(5, :spades) }
     let(:card11) { Card.new(2, :spades) }
     
-    let(:flush_hand) { ... }
+    let(:card12) { Card.new(1, :diamonds) }
+    let(:card13) { Card.new(2, :diamonds) }
+    let(:card14) { Card.new(3, :diamonds) }
+    let(:card15) { Card.new(4, :diamonds) }
+    let(:card16) { Card.new(5, :diamonds) }
+    
+    let(:card17) { Card.new(10, :diamonds) }
+    let(:card18) { Card.new(11, :diamonds) }
+    let(:card19) { Card.new(12, :diamonds) }
+    let(:card20) { Card.new(13, :diamonds) }
+    let(:card21) { Card.new(14, :diamonds) }
 
-    # it "recognizes pairs do" do
-    #   hand.add_card(card1)
-    #   hand.add_card(card2)
-    #   expect(hand.face_matches).to eq({1 => [:hearts, :clubs]})
-    # end
-    # it "recognizes matching suites" do
-    #   hand.add_card(card1)
-    #   hand.add_card(card3)
-    #   hand.add_card(card2)
-    #   hand.add_card(card4)
-    #   expect(hand.suit_matches).to eq({ :hearts => [1,2], :clubs => [1,4] })
-    # end
+    
+    
+    let(:flush_hand) { Hand.new([:card8, :card9, :card10, :card11, :card4]) }
+    let(:straight_hand) { Hand.new([:card1, :card5, :card6, :card7, :card8]) }
+    let(:pair_hand) { Hand.new([:card1, :card2]) }
+    let(:triple_hand) { Hand.new ([:card1, :card2, :card3 ]) }
+    let(:four_of_kind_hand) { Hand.new([:card1, :card2, :card3, :card4]) }
+    let(:full_house_hand) { Hand.new([:card1, :card2, :card3, :card9, :card11]) }
+    let(:flush_hand) { Hand.new([:card4, :card8, :card9, :card10, :card11]) }
+    let(:straight_flush_hand) { Hand.new([:card12, :card13, :card14, :card15, :card16]) }
+    let(:flush_hand) { Hand.new([:card17, :card18, :card19, :card20, :card21]) }    
     
     describe "face match combos" do
       it "recognizes pairs" do 
-        hand.add_card(card1)
-        hand.add_card(card2)
-        expect(hand.pair).to eq([1])
+
+        expect(pair_hand.pair).to eq([1])
       end
     
       it "recognizes triples" do 
-        hand.add_card(card1)
-        hand.add_card(card3)
-        hand.add_card(card2)
-        expect(hand.triple).to eq([1])
+
+        expect(triple_hand.triple).to eq([1])
       end
     
       it "recognizes 4 of a kind" do 
-        hand.add_card(card1)
-        hand.add_card(card3)
-        hand.add_card(card2)
-        hand.add_card(card4)
-        expect(hand.four_of_kind).to eq([1])
+
+        expect(four_of_kind_hand.four_of_kind).to eq([1])
       end
       
       it "recognizes a straight" do
-        hand.add_card(card1)
-        hand.add_card(card5)
-        hand.add_card(card6)
-        hand.add_card(card7)
-        hand.add_card(card8)
-        expect(hand.straight).to eq([1,2,3,4,5])
+
+        expect(straight_hand.straight).to eq([1,2,3,4,5])
       end
       
       it "recognizes a full house" do
-        hand.add_card(card1)
-        hand.add_card(card2)
-        hand.add_card(card3)
-        hand.add_card(card5)
-        hand.add_card(card9)
+
         expect(full_house_hand.full_house).to eq([1,1,1,2,2])
       end
       
@@ -95,32 +90,26 @@ RSpec.describe 'hand' do
     
     describe "recognizes suit matches" do
       it "recognizes a flush" do
-        hand.add_card(card4)
-        hand.add_card(card8)
-        hand.add_card(card9)
-        hand.add_card(card10)
-        hand.add_card(card11)
+
         expect(flush_hand.flush).to eq([1,2,2,5,5])
       end
     end
     
     describe "recognizes top combos" do
-      let(:card6) { Card.new(1, :clubs) }
-      let(:card7) { Card.new(2, :diamonds) }
-      let(:card8) { Card.new(3, :spades) }
-      let(:card9) { Card.new(4, :spades) }
-      let(:card10) { Card.new(5, :spades) }
-      let(:card11) { Card.new(2, :spades) }
       
       it "recognizes a straight flush" do 
+        expect(straight_flush_hand.straight_flush).to eq({ :diamonds => [1,2,3,4,5] })
       end
       
+      it "recognizes royal flush" do
+        expect(royal_flush_hand.royal_flush).to eq( { :diamonds => [10,11,12,13,14] } )
+      end
       
     end
       
       
-      describe '#beats' do
-        ... expect flush_hand to beat straight_hand
+      describe '#beats'
+        # ... expect flush_hand to beat straight_hand
       end  
     
   end
