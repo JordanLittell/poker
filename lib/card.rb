@@ -16,4 +16,5 @@ class Card
   def inspect 
     "#{face}#{SUIT[suit]}"
   end
+  
 end

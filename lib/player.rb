@@ -14,6 +14,7 @@ class Player
   def fold
     self.out = true
     p "#{name} left the game"
+    
   end
   
   def see(see_amt)

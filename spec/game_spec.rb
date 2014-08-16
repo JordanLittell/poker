@@ -3,7 +3,7 @@ require 'game'
 
 RSpec.describe "Game start" do
   subject(:game) { Game.new(2) }
-  
+  let(:hand){ double "hand" }
   describe "It should set up the game on initialization" do
     it "gives each player 7 cards" do
       does_each_player_have_7_cards = game.players.all? do |player|
@@ -29,6 +29,8 @@ RSpec.describe "Game start" do
     it "determines a winner" do 
       expect(game.find_winner).to_not be_nil
     end
+    
+    
     
   end
   

@@ -59,13 +59,23 @@ class Game
   
   def find_winner
     winner_hash = {}
+    winners = []
     @players.each do |player|
-      winner_hash[player] = 200 unless player.hand.best_hand
+      winner_hash[player] = 200 unless !player.hand.best_hand.nil?
       winner_hash[player] = Hand::HAND_HEIRARCHY.index(player.hand.best_hand)
     end
     winner_hash.each do |key, value|
-      return key if value == winner_hash.values.min
+      winners << key if value == winner_hash.values.min
     end
+    winners.count == 1 ? winners[0] : tie_breaker(winners)
+  end
+
+  def tie_breaker(winners)
+    max = 0
+    winners.each do |winner|
+      winner.hand.best_hand[0] = max if winner.hand.best_hand[0] > max
+    end
+    winners.select{ |winner| winner.hand.best_hand[0] ==max }
   end
 
   private

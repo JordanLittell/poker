@@ -24,7 +24,7 @@ RSpec.describe Player do
   
   describe "player class can get user input" do 
     before do 
-      player.discard(0,1,2)
+      player.discard([0,1,2])
     end
     it "should ask for cards to discard" do 
       expect(player.hand.cards.length).to eq(4)
