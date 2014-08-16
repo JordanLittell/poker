@@ -21,8 +21,6 @@ RSpec.describe 'hand' do
     end
   end
       
-
-
   describe 'recognizes combos' do
     let(:card1) { Card.new(1, :hearts) }
     let(:card2) { Card.new(1, :clubs) }

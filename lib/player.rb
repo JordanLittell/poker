@@ -1,36 +1,45 @@
 require 'hand'
 
 class Player
-  attr_accessor :hand, :pot
-  attr_reader :name, :out
+  attr_accessor :hand, :pot, :out
+  attr_reader :name
   
   def initialize(name, pot)
     @name = name
     @hand = []
     @pot = pot
+    self.out = false
   end
   
   def fold
-    "#{name} left the game"
+    self.out = true
+    p "#{name} left the game"
+    
   end
   
-  def see
-    1
+  def see(see_amt)
+    reduce_pot_by(see_amt)
   end
   
-  def raise(amount)
+  def raise(raise_amt)
+    reduce_pot_by(raise_amt)
+  end
+  
+  def reduce_pot_by(amount)
     @pot -= amount
-    return amount
+  end
+  
+  def collect_win(total_amt)
+    @pot += total_amt
   end
   
   def discard(*card_indexes)
     removed = []
     card_indexes.each do |card_index|
-      removed << @hand.cards[card_index]
-      @hand.remove_card([@hand.cards[card_index]])
+      card = @hand.cards[card_index]
+      removed << @hand.cards.delete(card)
     end
     removed
-    
   end
   
   private 

@@ -14,7 +14,7 @@ class Hand
   end
   
   def remove_card(card)
-    @cards -= card
+    @cards.delete(card)
   end
   
   def pair
