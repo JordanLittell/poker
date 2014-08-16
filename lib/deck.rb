@@ -28,4 +28,10 @@ class Deck
     pop_cards
   end
   
+  def add_cards(added_cards)
+    added_cards.each do |a_card|
+      self.cards.push a_card
+    end
+  end
+  
 end

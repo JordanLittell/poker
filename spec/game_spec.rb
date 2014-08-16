@@ -19,7 +19,7 @@ RSpec.describe "Game start" do
       expect(do_all_players_bet).to be true
     end
     
-    it "it collects the bet" do 
+    it "it collects bets" do 
       expect(game.winning_pot).to eq(40)
     end
   end 
@@ -29,7 +29,6 @@ RSpec.describe "Game start" do
     it "determines a winner" do 
       expect(game.find_winner).to_not be_nil
     end
-    
     
   end
   

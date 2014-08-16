@@ -9,7 +9,7 @@ class Game
     @winning_pot = 0
     @betters = false 
     initialize_players(num_players)
-    collect_initial_bets
+    collect_entry_fee
     deal_cards
   end
   
@@ -46,9 +46,13 @@ class Game
       end
     end
 
-    def collect_initial_bets
+    def collect_entry_fee
+      collect_bet(30)
+    end
+    
+    def collect_bet(bet)
       @players.each do |player|
-        @winning_pot += player.reduce_pot_by(30)
+        @winning_pot += player.reduce_pot_by(bet)
       end
     end
 

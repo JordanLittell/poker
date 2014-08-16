@@ -33,5 +33,17 @@ RSpec.describe Deck do
       expect(deck.cards.length).to eq(33)
     end
   end
+  
+  describe "add cards" do 
+    it "grows if cards are added to it" do 
+      deck.add_cards([Card.new(2,:hearts), 
+        Card.new(3,:hearts), 
+        Card.new(4,:hearts), 
+        Card.new(5, :hearts), 
+        Card.new(6,:hearts)
+      ])
+      expect(deck.cards.length).to eq(43)
+    end
+  end
 end 
   
