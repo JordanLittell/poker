@@ -1,6 +1,8 @@
 require 'card'
 
 class Hand
+  CARD_RANK = [:royal_flush, :straight_flush, :four_of_kind, :flush, :straight, :triple, :pair]
+  
   attr_reader :cards
   
   def initialize(cards)
@@ -31,8 +33,9 @@ class Hand
   end
 
   def full_house
-    matches = (num_face_matches(2)*2 + num_face_matches(3)*3).sort
-    matches.empty? ? false : matches    
+    matches = [] 
+    matches += num_face_matches(2)*2 + num_face_matches(3)*3
+    matches.length == 5 ? matches.sort : false
   end
   
   def straight
@@ -43,28 +46,52 @@ class Hand
         hand << card.face
         break
       end
-      p (sorted_hand[index].face - sorted_hand[index+1].face)
       hand << card.face if (sorted_hand[index].face - sorted_hand[index+1].face) == 1
     end
-    p hand
+
     hand.length == 5 ? hand.sort : false
+  end
+  
+  def straight_flush
+    matches = []
+    return suit_matches if flush && straight
+    false
+  end
+  
+  def royal_flush
+    if suit_matches.values[0].none?{ |v| v < 10}
+      return suit_matches if flush && straight 
+    end
+    false
   end
   
   def flush
     matches = []
-    if suit_matches.length == 5 
+
+    if suit_matches.values[0].count == 5 
       suit_matches.each do |key, value|
         matches += value
       end
-      return matches
+      return matches.sort
     end
     false
+  end
+  
+  def best_hand
+    return :royal_flush if royal_flush
+    return :straight_flush if straight_flush
+    return :four_of_kind if four_of_kind
+    return :full_house if full_house
+    return :flush if flush
+    return :straight if straight
+    return :triple if triple
+    return :pair if pair
   end
   
   private
 
   def num_face_matches(num)
-    face_matches.select { |key, value| value.length == num }.keys
+    matches = face_matches.select { |key, value| value.length == num }.keys
   end
 
   def face_matches

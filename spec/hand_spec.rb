@@ -34,7 +34,7 @@ RSpec.describe 'hand' do
     let(:card8) { Card.new(5, :spades) }
     let(:card9) { Card.new(2, :spades) }
     let(:card10) { Card.new(5, :spades) }
-    let(:card11) { Card.new(2, :spades) }
+    let(:card11) { Card.new(2, :diamonds) }
     
     let(:card12) { Card.new(1, :diamonds) }
     let(:card13) { Card.new(2, :diamonds) }
@@ -49,16 +49,16 @@ RSpec.describe 'hand' do
     let(:card21) { Card.new(14, :diamonds) }
 
     
-    
-    let(:flush_hand) { Hand.new([:card8, :card9, :card10, :card11, :card4]) }
-    let(:straight_hand) { Hand.new([:card1, :card5, :card6, :card7, :card8]) }
-    let(:pair_hand) { Hand.new([:card1, :card2]) }
-    let(:triple_hand) { Hand.new ([:card1, :card2, :card3 ]) }
-    let(:four_of_kind_hand) { Hand.new([:card1, :card2, :card3, :card4]) }
-    let(:full_house_hand) { Hand.new([:card1, :card2, :card3, :card9, :card11]) }
-    let(:flush_hand) { Hand.new([:card4, :card8, :card9, :card10, :card11]) }
-    let(:straight_flush_hand) { Hand.new([:card12, :card13, :card14, :card15, :card16]) }
-    let(:flush_hand) { Hand.new([:card17, :card18, :card19, :card20, :card21]) }    
+    let(:flush_hand) { Hand.new([card8, card9, card10, card11, card4]) }
+    let(:straight_hand) { Hand.new([card1, card5, card6, card7, card8]) }
+    let(:pair_hand) { Hand.new([card1, card2]) }
+    let(:triple_hand) { Hand.new ([card1, card2, card3, card5, card6]) }
+    let(:four_of_kind_hand) { Hand.new([card1, card2, card3, card4]) }
+    let(:full_house_hand) { Hand.new([card1, card2, card3, card9, card11]) }
+    let(:royal_flush_hand) { Hand.new([card17, card18, card19, card20, card21]) } 
+    let(:flush_hand) { royal_flush_hand }
+    let(:straight_flush_hand) { Hand.new([card12, card13, card14, card15, card16]) }
+       
     
     describe "face match combos" do
       it "recognizes pairs" do 
@@ -90,8 +90,7 @@ RSpec.describe 'hand' do
     
     describe "recognizes suit matches" do
       it "recognizes a flush" do
-
-        expect(flush_hand.flush).to eq([1,2,2,5,5])
+        expect(flush_hand.flush).to eq([10,11,12,13,14])
       end
     end
     
@@ -106,11 +105,15 @@ RSpec.describe 'hand' do
       end
       
     end
-      
-      
-      describe '#beats'
-        # ... expect flush_hand to beat straight_hand
-      end  
+    
+    describe "it recognizes the best cards" do
+      it "knows what the best combo is" do
+        expect(full_house_hand.best_hand).to eq(:full_house)
+        expect(triple_hand.best_hand).to eq(:triple)
+        expect(straight_flush_hand.best_hand).to eq(:straight_flush)
+      end
+    end
+
     
   end
 end

@@ -8,7 +8,7 @@ class Game
   def initialize(num_players)
     @players = []
     num_players.times do |player_id|
-      @players << Player.new("player#{player_id}")
+      @players << Player.new("player#{player_id}", 50)
     end
     @deck = Deck.new
     seed_hands
