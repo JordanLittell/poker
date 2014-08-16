@@ -14,7 +14,6 @@ class Player
   def fold
     self.out = true
     p "#{name} left the game"
-    
   end
   
   def see(see_amt)
@@ -33,7 +32,7 @@ class Player
     @pot += total_amt
   end
   
-  def discard(*card_indexes)
+  def discard(card_indexes)
     removed = []
     card_indexes.each do |card_index|
       card = @hand.cards[card_index]

@@ -17,13 +17,43 @@ class Game
     @betters
   end
   
+  def prompt_bets
+    @players.each do |player|
+      p "#{player.name} you have #{player.hand.cards}. Place your bet"
+      bet = gets.chomp.to_i
+      collect_bet(bet, player)
+    end  
+  end
+  
+  def player_discard(player)
+    #returns number of cards discarded
+      p "enter the indices of cards you want to discard"
+      input = gets.chomp.split(' ').map(&:to_i)
+      player.discard(input)
+      input.length
+  end
+    
+  
+  def replace_card(player, n)
+    replacements = deck.remove_cards!(n)
+    replacements.each do |card|
+      player.hand.add_card(card)
+    end
+  end
+
   def run 
+    #collect the bets
+    prompt_bets
+    #allow users to replace cards
     @players.each do |player|
-      player.get_user_bet(:bet)
+      replace_card(player, player_discard(player))
     end
-    @players.each do |player|
-      p "#{player.name} had #{player.hand.cards.map{|card| card.face}}"
-    end
+    prompt_bets
+    #allow users to bet again 
+
+#     @players.each do |player|
+#       p "#{player.name} had #{player.hand.cards.map{|card| card.face}}"
+#     end
     p "the winner was #{find_winner.name}"
   end
   
@@ -45,15 +75,16 @@ class Game
         @players << Player.new("player#{player_id}", 50)
       end
     end
+    
 
     def collect_entry_fee
-      collect_bet(30)
+      @players.each do |player|
+        collect_bet(30, player)
+      end
     end
     
-    def collect_bet(bet)
-      @players.each do |player|
+    def collect_bet(bet, player)
         @winning_pot += player.reduce_pot_by(bet)
-      end
     end
 
     def deal_cards
