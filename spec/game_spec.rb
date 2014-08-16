@@ -24,4 +24,13 @@ RSpec.describe "Game start" do
     end
   end 
   
+  describe "it should be able to run the game" do 
+    
+    it "determines a winner" do 
+      expect(game.find_winner).to_not be_nil
+    end
+    
+    
+  end
+  
 end

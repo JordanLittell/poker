@@ -1,7 +1,15 @@
-require 'card'
+require_relative 'card'
 
 class Hand
-  CARD_RANK = [:royal_flush, :straight_flush, :four_of_kind, :flush, :straight, :triple, :pair]
+  HAND_HEIRARCHY = 
+  [
+    :royal_flush, 
+    :straight_flush, 
+    :four_of_kind, 
+    :flush, :straight, 
+    :triple, 
+    :pair
+  ]
   
   attr_reader :cards
   
@@ -86,6 +94,7 @@ class Hand
     return :straight if straight
     return :triple if triple
     return :pair if pair
+    false
   end
   
   private

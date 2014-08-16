@@ -1,4 +1,4 @@
-require 'hand'
+require_relative 'hand'
 
 class Player
   attr_accessor :hand, :pot, :out
@@ -42,13 +42,15 @@ class Player
     removed
   end
   
-  private 
-  
   def get_user_bet(sym)
     p "enter the ammount you would like to #{sym.to_s}"
-    input = gets.user.chomp.to_i
+    input = gets.chomp.to_i
     input
   end
+  
+  private 
+  
+  
     
   
 end
